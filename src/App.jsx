@@ -13,7 +13,8 @@ const requestNotificationPermission = async () => {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       const token = await getToken(messaging, {
-        vapidKey: "YOUR_VAPID_KEY", // Replace with your actual key
+        vapidKey:
+          "BAfTzASb_Sh02ThHsRKnoTynEHf5hSntVeK6LIZeT8se0TWy5FsuELzO6gdAFNZyabo1GPN1ltXo9GZq36fVUs4",
       });
       console.log("FCM Token:", token);
       // TODO: Save token to Firestore/user profile
