@@ -44,7 +44,10 @@ export default function Home(props) {
           <TaskList status={tabValue} />
         </Box>
       </Box>
-      <label style={{ margin: "2px" }}> {props.firebase} </label>
+      <paragraph style={{ margin: "2px" }}>
+        {" "}
+        Firebase Token is here : <br /> {props.firebase}
+      </paragraph>
     </>
   );
 }
