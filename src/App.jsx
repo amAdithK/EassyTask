@@ -6,6 +6,7 @@ import { messaging } from "./firebase";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { ToastContainer } from "react-toastify";
 
 // Request notification permission
 const requestNotificationPermission = async () => {
@@ -30,6 +31,7 @@ export default function App() {
 
     // Listen for incoming messages
     onMessage(messaging, (payload) => {
+      console.log(payload);
       new Notification(payload.notification.title, {
         body: payload.notification.body,
       });
@@ -38,10 +40,11 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/tasklist" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
