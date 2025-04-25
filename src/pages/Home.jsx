@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import TaskList from "../components/TaskList";
 
-export default function Home() {
+export default function Home(props) {
   const { currentUser, logout } = useAuth();
   const [tabValue, setTabValue] = useState("new");
 
@@ -20,27 +20,31 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            EasyTask
-          </Typography>
-          <Button color="inherit" onClick={logout}>
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
+    <>
+      {" "}
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              EasyTask
+            </Typography>
+            <Button color="inherit" onClick={logout}>
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
 
-      <Box sx={{ p: 3 }}>
-        <Tabs value={tabValue} onChange={handleTabChange} centered>
-          <Tab label="New" value="new" />
-          <Tab label="In Progress" value="in-progress" />
-          <Tab label="Completed" value="done" />
-        </Tabs>
+        <Box sx={{ p: 3 }}>
+          <Tabs value={tabValue} onChange={handleTabChange} centered>
+            <Tab label="New" value="new" />
+            <Tab label="In Progress" value="in-progress" />
+            <Tab label="Completed" value="done" />
+          </Tabs>
 
-        <TaskList status={tabValue} />
+          <TaskList status={tabValue} />
+        </Box>
       </Box>
-    </Box>
+      <label style={{ margin: "2px" }}> {props.firebase} </label>
+    </>
   );
 }
