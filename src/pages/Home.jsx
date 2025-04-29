@@ -11,19 +11,18 @@ import {
 } from "@mui/material";
 import TaskList from "../components/TaskList";
 
-export default function Home(props) {
+export default function Home() {
   const { currentUser, logout } = useAuth();
-  const [tabValue, setTabValue] = useState("new");
 
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
+  // const handleTabChange = (event, newValue) => {
+  //   setTabValue(newValue);
+  // };
 
   return (
     <>
       {" "}
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="absolute">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               EasyTask
@@ -35,19 +34,13 @@ export default function Home(props) {
         </AppBar>
 
         <Box sx={{ p: 3 }}>
-          <Tabs value={tabValue} onChange={handleTabChange} centered>
-            <Tab label="New" value="new" />
-            <Tab label="In Progress" value="in-progress" />
-            <Tab label="Completed" value="done" />
-          </Tabs>
-
-          <TaskList status={tabValue} />
+          <TaskList />
         </Box>
       </Box>
-      <paragraph style={{ margin: "2px" }}>
+      {/* <paragraph style={{ margin: "2px" }}>
         {" "}
         Firebase Token is here : <br /> {props.firebase}
-      </paragraph>
+      </paragraph> */}
     </>
   );
 }

@@ -5,7 +5,7 @@ import { messaging } from "./firebase";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -30,9 +30,13 @@ export default function App() {
     requestNotificationPermission();
 
     onMessage(messaging, (payload) => {
-      new Notification(payload.notification.title, {
-        body: payload.notification.body,
-      });
+      if (Notification.permission === "granted") {
+        new Notification(payload.notification.title, {
+          body: payload.notification.body,
+        });
+      } else {
+        toast(payload.notification.title + ": " + payload.notification.body); // Fallback with toast
+      }
     });
   }, []);
 
