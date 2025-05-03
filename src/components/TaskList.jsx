@@ -104,7 +104,7 @@ export default function TaskList() {
                 <tr
                   key={task.uuid}
                   className="hover:bg-gray-100 cursor-pointer"
-                  onClick={() => navigate(`/task/${task.uuid}`)}
+                  // onClick={() => navigate(`/task/${task.uuid}`)}
                 >
                   <td className="px-4 py-3">{task.company_name}</td>
                   <td className="px-4 py-3">{task.created_by_name}</td>

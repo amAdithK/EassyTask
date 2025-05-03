@@ -9,10 +9,18 @@ import {
   Tab,
   Box,
 } from "@mui/material";
+import { sessionStorageDelete } from "../utilities/sessionStorage";
 import TaskList from "../components/TaskList";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const { currentUser, logout } = useAuth();
+  // const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    sessionStorageDelete("access_token");
+    navigate("/");
+  };
 
   // const handleTabChange = (event, newValue) => {
   //   setTabValue(newValue);
@@ -27,7 +35,7 @@ export default function Home() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               EasyTask
             </Typography>
-            <Button color="inherit" onClick={logout}>
+            <Button color="inherit" onClick={handleLogout}>
               Logout
             </Button>
           </Toolbar>
