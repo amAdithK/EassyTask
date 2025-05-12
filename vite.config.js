@@ -16,6 +16,9 @@ export default defineConfig({
       manifest: {
         name: "EasyTask",
         short_name: "EasyTask",
+        start_url: "/",
+        display: "standalone",
+        background_color: "#ffffff",
         theme_color: "#ffffff",
         icons: [
           {
@@ -33,6 +36,15 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
         globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === "navigate",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "html-cache",
+            },
+          },
+        ],
       },
     }),
   ],
