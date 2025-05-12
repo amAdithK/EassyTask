@@ -31,20 +31,26 @@ export default function App() {
 
     requestNotificationPermission();
 
-    onMessage(messaging, (payload) => {
-      if (Notification.permission === "granted") {
-        new Notification(payload.notification.title, {
+    onMessage(messaging, async (payload) => {
+      const registration = await navigator.serviceWorker.getRegistration();
+
+      if (registration) {
+        registration.showNotification(payload.notification.title, {
           body: payload.notification.body,
+          icon: payload.notification.icon,
+          data: payload.data,
+          vibrate: [100, 50, 100],
+          requireInteraction: false,
         });
       } else {
-        toast(payload.notification.title + ": " + payload.notification.body); // Fallback with toast
+        toast(payload.notification.title + ": " + payload.notification.body); // fallback
       }
     });
   }, []);
 
   return (
     <BrowserRouter>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="bottom-right" autoClose={3000} />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

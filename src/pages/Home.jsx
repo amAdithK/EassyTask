@@ -30,7 +30,7 @@ export default function Home() {
     <>
       {" "}
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="absolute">
+        <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               EasyTask
@@ -41,7 +41,7 @@ export default function Home() {
           </Toolbar>
         </AppBar>
 
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <TaskList />
         </Box>
       </Box>

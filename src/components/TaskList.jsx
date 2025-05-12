@@ -5,6 +5,18 @@ import { fetchUsers } from "../services/userService";
 import { updateTaskStatus } from "../services/statusService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import Grid from '@mui/material/Grid';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import './Dashboard.css';
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -70,91 +82,136 @@ export default function TaskList() {
 
   if (loading) return <div className="text-center p-6">Loading...</div>;
 
+
+
   return (
-    <div className="p-4 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-xl font-bold">Task List</h1>
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
+
+    <div className="main">
+      <Grid
+        container
+        direction="row"
+        sx={{
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: '15px'
+        }}
+      >
+        <h1 className="headingTitle">Task List</h1>
+        <FormGroup>
+          <FormControlLabel control={<Switch
             checked={showClosed}
             onChange={() => setShowClosed(!showClosed)}
-            className="accent-blue-500"
+          />}
+            label="Show Closed"
+            labelPlacement="start"
+            sx={{
+              '&.MuiFormControlLabel-root': { marginRight: '0' },
+              '& .MuiFormControlLabel-label': { fontSize: '14px' }
+            }}
           />
-          <span className="text-sm">Show Closed</span>
-        </label>
-      </div>
+        </FormGroup>
+      </Grid>
 
       {filteredTasks.length > 0 ? (
-        <div className="overflow-x">
-          <table className="w-full text-sm text-left">
-            <thead>
-              <tr className="text-gray-600">
-                <th className="px-4 py-2 font-medium">Company</th>
-                <th className="px-4 py-2 font-medium">Created By</th>
-                <th className="px-4 py-2 font-medium">Due Date</th>
-                <th className="px-4 py-2 font-medium">Description</th>
-                <th className="px-4 py-2 font-medium">Note</th>
-                <th className="px-4 py-2 font-medium">Status</th>
-                <th className="px-4 py-2 font-medium">Assign User</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredTasks.map((task) => (
-                <tr
-                  key={task.uuid}
-                  className="hover:bg-gray-100 cursor-pointer"
-                  // onClick={() => navigate(`/task/${task.uuid}`)}
-                >
-                  <td className="px-4 py-3">{task.company_name}</td>
-                  <td className="px-4 py-3">{task.created_by_name}</td>
-                  <td className="px-4 py-3">
+        <div className="taskContainer">
+          {filteredTasks.map((task) => (
+            <Box className="taskCard" key={task.uuid}>
+              <Grid container spacing={2}>
+                <Grid size={12}>
+                  <label>Company</label>
+                  <div className="taskValue">{task.company_name}</div>
+                </Grid>
+                <Grid size={6}>
+                  <label>Created By</label>
+                  <div className="taskValue">{task.created_by_name}</div>
+                </Grid>
+                <Grid size={6}>
+                  <label>Due Date</label>
+                  <div className="taskValue">
                     {task.due_date
                       ? new Date(task.due_date).toLocaleDateString("en-GB")
                       : "--"}
-                  </td>
-                  <td className="px-4 py-3">{task.description}</td>
-                  <td className="px-4 py-3 text-xs text-gray-500">
-                    {task.note}
-                  </td>
-                  <td className="px-4 py-3">
-                    <select
-                      value={task.status}
-                      onChange={(e) => {
-                        e.stopPropagation();
-                        handleStatusChange(task.uuid, e.target.value);
-                      }}
-                      className="border rounded px-2 py-1 text-sm"
-                    >
-                      <option value="Open">Open</option>
-                      <option value="In Progress">In Progress</option>
-                      <option value="Closed">Closed</option>
-                    </select>
-                  </td>
-                  <td className="px-4 py-3">
-                    <select
-                      value={task.assigned_to_uuid || ""}
-                      onChange={(e) => {
-                        e.stopPropagation();
-                        handleAssignUser(task.uuid, e.target.value);
-                      }}
-                      className="border rounded px-2 py-1 text-sm"
-                    >
-                      <option value="">Assign User</option>
-                      {users.map((user) => (
-                        <option key={user.value} value={user.value}>
-                          {user.label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                </Grid>
+                <Grid size={12}>
+                  <label>Description</label>
+                  <div className="taskValue">{task.description}</div>
+                </Grid>
+                <Grid size={12}>
+                  <label>Note</label>
+                  <div className="taskValue">{task.note}</div>
+                </Grid>
+                <Grid size={6}>
+                  <div className="taskValue">
+                    <FormControl fullWidth size="small">
+                      <InputLabel id="userStatus">Status</InputLabel>
+                      <Select
+                        labelId="userStatus"
+                        label="Status"
+                        value={task.status}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          handleStatusChange(task.uuid, e.target.value);
+                        }}
+                        sx={{ '& .MuiSelect-select': { fontSize: '14px' } }}
+                        MenuProps={{
+                          PaperProps: {
+                            sx: {
+                              '& .MuiSelect-select': {
+                                fontSize: '14px',
+                              },
+                              '& .MuiMenuItem-root': {
+                                fontSize: '14px',
+                              },
+                            },
+                          },
+                        }}
+                      >
+                        <MenuItem value="Open">Open</MenuItem>
+                        <MenuItem value="In Progress">In Progress</MenuItem>
+                        <MenuItem value="Closed">Closed</MenuItem>
+                      </Select>
+                    </FormControl>
+
+                  </div>
+                </Grid>
+                <Grid size={6}>
+                  <div className="taskValue">
+                    <FormControl fullWidth size="small">
+                      <InputLabel id="assignUser">Assign User</InputLabel>
+                      <Select
+                        labelId="assignUser"
+                        label="Assign User"
+                        value={task.assigned_to_uuid || ""}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          handleAssignUser(task.uuid, e.target.value);
+                        }}
+                        sx={{ '& .MuiSelect-select': { fontSize: '14px' } }}
+                        MenuProps={{
+                          PaperProps: {
+                            sx: {
+                              '& .MuiMenuItem-root': {
+                                fontSize: '14px',
+                              },
+                            },
+                          },
+                        }}
+                      >
+                        {users.map((user) => (
+                          <MenuItem key={user.value} value={user.value}>{user.label}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+
+                  </div>
+                </Grid>
+              </Grid>
+            </Box>
+          ))}
         </div>
       ) : (
-        <div className="text-center text-gray-500 p-8">No tasks found.</div>
+        <Alert severity="error">No tasks found.</Alert>
       )}
     </div>
   );

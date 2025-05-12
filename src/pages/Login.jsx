@@ -20,6 +20,8 @@ import { login } from "../services/login";
 import { sessionStorageSet } from "../utilities/sessionStorage";
 import { useAppStore } from "../store/AppStore";
 import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../constants/messages";
+import logo from "../images/logo-c.png";
+import "./Login.css";
 
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -63,142 +65,105 @@ const Login = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        height: "99vh",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#6d7fba",
-      }}
-    >
-      <Container component="main" maxWidth="xs">
-        <Grid container>
-          <CssBaseline />
-          <Grid
-            component={Paper}
-            elevation={6}
-            square
-            sx={{
-              width: "100%",
-              mx: "auto",
-              padding: 4,
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
+    <Box className="loginBg">
+      <div className="loginOverlay"></div>
+      <Box className="loginContainer">
+        <div className="loginLogo">
+          <img src={logo} alt="P. N. Pai & Co." title="P. N. Pai & Co." />
+        </div>
+        <h1>Sign In</h1>
+        <Formik
+          initialValues={{ username: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={handleFormSubmit}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Username"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={!!touched.username && !!errors.username}
+                helperText={touched.username && errors.username}
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Password"
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={!!touched.password && !!errors.password}
+                helperText={touched.password && errors.password}
+              />
+
               <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "flex-end",
-                  width: "100%",
-                  padding: "5px",
+                  alignItems: "center",
+                  marginBottom: "30px",
                 }}
               >
-                <Box sx={{ textAlign: "left", maxWidth: "50%" }}>
-                  <img
-                    src="/images/logo-c.png"
-                    alt="P. N. Pai & Co."
-                    title="P. N. Pai & Co."
-                    style={{ borderRadius: "5px", maxWidth: "100%" }}
-                  />
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                    textAlign: "right",
-                    paddingRight: "5px",
-                  }}
-                >
-                  <Typography sx={{ fontSize: "1.2rem" }}>Sign In</Typography>
-                </Box>
-              </Box>
-
-              <Formik
-                initialValues={{ username: "", password: "" }}
-                validationSchema={validationSchema}
-                onSubmit={handleFormSubmit}
-              >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting,
-                }) => (
-                  <form onSubmit={handleSubmit} style={{ width: "100%" }}>
-                    <TextField
-                      fullWidth
-                      margin="normal"
-                      label="Username"
-                      name="username"
-                      value={values.username}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={!!touched.username && !!errors.username}
-                      helperText={touched.username && errors.username}
-                    />
-                    <TextField
-                      fullWidth
-                      margin="normal"
-                      label="Password"
-                      name="password"
-                      type="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={!!touched.password && !!errors.password}
-                      helperText={touched.password && errors.password}
-                    />
-
-                    <Box
+                {/* <FormControlLabel
+                  control={
+                    <Checkbox
+                      value="remember"
                       sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-end",
-                        width: "100%",
-                        mt: 2,
+                        color: 'white',
+                        '&.Mui-checked': {
+                          color: 'white',
+                        },
+                        '& .MuiSvgIcon-root': {
+                          borderRadius: '4px',
+                        },
                       }}
-                    >
-                      <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                      />
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={isSubmitting}
-                      >
-                        Sign In
-                      </Button>
-                    </Box>
+                    />
+                  }
+                  label="Remember me"
+                  sx={{ color: 'white' }}
+                /> */}
 
-                    <Grid container sx={{ mt: 1 }}>
-                      <Grid item xs>
-                        <Link href="#" variant="body2">
-                          Forgot password?
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  </form>
-                )}
-              </Formik>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
+                <Link
+                  variant="body2"
+                  sx={{ color: "white", cursor: "pointer" }}
+                  onClick={() => toast.error("Try In WebPage")}
+                >
+                  Forgot password?
+                </Link>
+              </Box>
+              <Button
+                type="submit"
+                variant="contained"
+                disableElevation
+                color="primary"
+                disabled={isSubmitting}
+                fullWidth
+                sx={{
+                  borderRadius: "30px",
+                  py: 1.5,
+                }}
+              >
+                Sign In
+              </Button>
+            </form>
+          )}
+        </Formik>
+      </Box>
     </Box>
   );
 };

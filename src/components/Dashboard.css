@@ -1,0 +1,46 @@
+@import url(../assets/style.css);
+
+.main {
+    .headingTitle {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .taskContainer {
+
+        .taskCard {
+            border-width: 1px 1px 1px 4px;
+            border-style: solid;
+            border-color: #e0e0e0;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+
+            label {
+                font-size: 12px;
+                color: #777;
+
+                &.MuiInputLabel-shrink {
+                    transform: translate(14px, -9px) scale(1);
+                }
+            }
+
+            &:nth-child(4n + 1) {
+                border-left-color: #ec5463;
+            }
+
+            &:nth-child(4n + 2) {
+                border-left-color: #fecd57;
+            }
+
+            &:nth-child(4n + 3) {
+                border-left-color: #9fd26b;
+            }
+
+            &:nth-child(4n + 4) {
+                border-left-color: #ac92eb;
+            }
+        }
+    }
+
+}
