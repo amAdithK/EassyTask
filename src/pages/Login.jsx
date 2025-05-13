@@ -22,6 +22,7 @@ import { useAppStore } from "../store/AppStore";
 import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../constants/messages";
 import logo from "../images/logo-c.png";
 import "./Login.css";
+import { updateFcmToken } from "../services/fcmTokenService";
 
 const Login = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -29,9 +30,17 @@ const Login = () => {
   const [, dispatch] = useAppStore();
 
   useEffect(() => {
-    if (submitted) {
-      navigate("/tasklist", { replace: true });
-    }
+    const updateTokenAndNavigate = async () => {
+      if (submitted) {
+        const fcmToken = localStorage.getItem("FCMTokenKey");
+        if (fcmToken) {
+          await updateFcmToken(fcmToken);
+        }
+        navigate("/tasklist", { replace: true });
+      }
+    };
+
+    updateTokenAndNavigate();
   }, [submitted, navigate]);
 
   const validationSchema = Yup.object({

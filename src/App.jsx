@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { ToastContainer, toast } from "react-toastify";
-import { updateFcmToken } from "./services/fcmTokenService";
+// import { updateFcmToken } from "./services/fcmTokenService";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -21,7 +21,8 @@ export default function App() {
               "BAfTzASb_Sh02ThHsRKnoTynEHf5hSntVeK6LIZeT8se0TWy5FsuELzO6gdAFNZyabo1GPN1ltXo9GZq36fVUs4",
           });
           console.log("FCM Token:", fcmToken);
-          await updateFcmToken(fcmToken);
+          localStorage.setItem("FCMTokenKey", fcmToken);
+          // await updateFcmToken(fcmToken);
           setToken(fcmToken);
         }
       } catch (error) {
