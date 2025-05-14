@@ -13,20 +13,20 @@ importScripts(
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 firebase.initializeApp({
-  // apiKey: "AIzaSyBXjUGbU2ujeDVW2HgFar19UyRf_p4lBYA",
-  // authDomain: "easytask-new.firebaseapp.com",
-  // projectId: "easytask-new",
-  // storageBucket: "easytask-new.firebasestorage.app",
-  // messagingSenderId: "914814720542",
-  // appId: "1:914814720542:web:b8fbfb138a89d72347ec0f",
-  // measurementId: "G-TY5ZK1R4HC",
-  apiKey: "AIzaSyC9Mh882pbNtDjC-pXhJVAK8Www8yKa88M",
-  authDomain: "flutter-fcm-d6453.firebaseapp.com",
-  projectId: "flutter-fcm-d6453",
-  storageBucket: "flutter-fcm-d6453.firebasestorage.app",
-  messagingSenderId: "459058919126",
-  appId: "1:459058919126:web:1a8dfed10e7c15467fbb77",
-  measurementId: "G-5V2F41LEG0",
+  apiKey: "AIzaSyBXjUGbU2ujeDVW2HgFar19UyRf_p4lBYA",
+  authDomain: "easytask-new.firebaseapp.com",
+  projectId: "easytask-new",
+  storageBucket: "easytask-new.firebasestorage.app",
+  messagingSenderId: "914814720542",
+  appId: "1:914814720542:web:b8fbfb138a89d72347ec0f",
+  measurementId: "G-TY5ZK1R4HC",
+  // apiKey: "AIzaSyC9Mh882pbNtDjC-pXhJVAK8Www8yKa88M",
+  // authDomain: "flutter-fcm-d6453.firebaseapp.com",
+  // projectId: "flutter-fcm-d6453",
+  // storageBucket: "flutter-fcm-d6453.firebasestorage.app",
+  // messagingSenderId: "459058919126",
+  // appId: "1:459058919126:web:1a8dfed10e7c15467fbb77",
+  // measurementId: "G-5V2F41LEG0",
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
