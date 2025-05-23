@@ -13,13 +13,13 @@ importScripts(
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 firebase.initializeApp({
-  apiKey: "AIzaSyBXjUGbU2ujeDVW2HgFar19UyRf_p4lBYA",
-  authDomain: "easytask-new.firebaseapp.com",
-  projectId: "easytask-new",
-  storageBucket: "easytask-new.firebasestorage.app",
-  messagingSenderId: "914814720542",
-  appId: "1:914814720542:web:b8fbfb138a89d72347ec0f",
-  measurementId: "G-TY5ZK1R4HC",
+  apiKey: "AIzaSyCaVHO-zfvvJdaTtyxggOvk7YFcRSE3xjU",
+  authDomain: "eassycorptrack.firebaseapp.com",
+  projectId: "eassycorptrack",
+  storageBucket: "eassycorptrack.firebasestorage.app",
+  messagingSenderId: "960870842985",
+  appId: "1:960870842985:web:07ac09e3adf039144e98f8",
+  measurementId: "G-4HTK059Y2F",
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background

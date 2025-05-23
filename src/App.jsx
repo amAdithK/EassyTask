@@ -18,7 +18,7 @@ export default function App() {
         if (permission === "granted") {
           const fcmToken = await getToken(messaging, {
             vapidKey:
-              "BAfTzASb_Sh02ThHsRKnoTynEHf5hSntVeK6LIZeT8se0TWy5FsuELzO6gdAFNZyabo1GPN1ltXo9GZq36fVUs4",
+              "BKHiOsWONhBq5fJwpDVWB0ikAouaf_kb7c-7x380slicfXOIfhg-iv2YM398g4fZ4kuy_7xkyLzmqHjuOOf59EA",
           });
           console.log("FCM Token:", fcmToken);
           localStorage.setItem("FCMTokenKey", fcmToken);
