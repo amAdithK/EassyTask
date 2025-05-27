@@ -20,7 +20,7 @@ export default function App() {
             vapidKey:
               "BKHiOsWONhBq5fJwpDVWB0ikAouaf_kb7c-7x380slicfXOIfhg-iv2YM398g4fZ4kuy_7xkyLzmqHjuOOf59EA",
           });
-          console.log("FCM Token:", fcmToken);
+          // console.log("FCM Token:", fcmToken);
           localStorage.setItem("FCMTokenKey", fcmToken);
           // await updateFcmToken(fcmToken);
           setToken(fcmToken);

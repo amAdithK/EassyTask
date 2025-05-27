@@ -2,6 +2,7 @@
 // Note that you can only use Firebase Messaging here. Other Firebase libraries
 // are not available in the service worker.
 // Replace 10.13.2 with latest version of the Firebase JS SDK.
+
 importScripts(
   "https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
 );
@@ -40,4 +41,25 @@ messaging.onBackgroundMessage((payload) => {
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener("notificationclick", function (event) {
+  event.notification.close();
+
+  const urlToOpen = new URL("http://localhost:5174/", self.location.origin);
+
+  event.waitUntil(
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clientList) => {
+        for (const client of clientList) {
+          if (client.url === urlToOpen.href && "focus" in client) {
+            return client.focus();
+          }
+        }
+        if (clients.openWindow) {
+          return clients.openWindow(urlToOpen.href);
+        }
+      })
+  );
 });
