@@ -32,34 +32,29 @@ messaging.onBackgroundMessage((payload) => {
     "[firebase-messaging-sw.js] Received background message ",
     payload
   );
-  // Customize notification here
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    // icon: payload.notification.icon?.icon || "",
-    // data: payload.data,
-  };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  // const notificationTitle = payload.notification.title;
+  // const notificationOptions = {
+  //   body: payload.notification.body,
+  // };
+
+  // self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
 self.addEventListener("notificationclick", function (event) {
+  console.log("[firebase-messaging-sw.js] Notification click Received.");
+
   event.notification.close();
 
-  const urlToOpen = new URL("http://localhost:5174/", self.location.origin);
-
   event.waitUntil(
-    clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then((clientList) => {
-        for (const client of clientList) {
-          if (client.url === urlToOpen.href && "focus" in client) {
-            return client.focus();
-          }
-        }
-        if (clients.openWindow) {
-          return clients.openWindow(urlToOpen.href);
-        }
-      })
+    clients.matchAll({ type: "window" }).then(function (clientList) {
+      for (let i = 0; i < clientList.length; i++) {
+        let client = clientList[i];
+        // If app is already open, focus it
+        if (client.url === "/" && "focus" in client) return client.focus();
+      }
+      // If app is not open, open a new window/tab
+      if (clients.openWindow) return clients.openWindow("/tasklist");
+    })
   );
 });

@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { login } from "../services/login";
-import { sessionStorageSet } from "../utilities/sessionStorage";
 import { useAppStore } from "../store/AppStore";
 import { SUCCESS_MESSAGES, ERROR_MESSAGES } from "../constants/messages";
 import logo from "../images/logo-c.png";
@@ -58,7 +57,7 @@ const Login = () => {
       toast.error(ERROR_MESSAGES.LOGIN_FAILED || "Login failed.");
     } else {
       toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS || "Login successful.");
-      sessionStorageSet("access_token", responseData.data.token);
+      localStorage.setItem("access_token", responseData.data.token);
 
       dispatch({
         type: "LOG_IN",

@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { ToastContainer, toast } from "react-toastify";
-// import { updateFcmToken } from "./services/fcmTokenService";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -55,7 +55,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/tasklist" element={<Home firebase={token} />} />
+        {/* <Route path="/tasklist" element={<Home firebase={token} />} /> */}
+        <Route
+          path="/tasklist"
+          element={
+            <ProtectedRoute>
+              <Home firebase={token} />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -7,7 +7,6 @@ import {
   Tab,
   Box,
 } from "@mui/material";
-import { sessionStorageDelete } from "../utilities/sessionStorage";
 import TaskList from "../components/TaskList";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +15,8 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    sessionStorageDelete("access_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("current_user");
     navigate("/");
   };
 
