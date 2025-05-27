@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import {
   Button,
   AppBar,
@@ -33,7 +31,7 @@ export default function Home() {
         <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              EasyTask
+              eaSsy Corp Track
             </Typography>
             <Button color="inherit" onClick={handleLogout}>
               Logout
@@ -45,10 +43,6 @@ export default function Home() {
           <TaskList />
         </Box>
       </Box>
-      {/* <paragraph style={{ margin: "2px" }}>
-        {" "}
-        Firebase Token is here : <br /> {props.firebase}
-      </paragraph> */}
     </>
   );
 }

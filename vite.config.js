@@ -14,8 +14,8 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "EasyTask",
-        short_name: "EasyTask",
+        name: "eaSsy Corp Track",
+        short_name: "eaSsy Corp Track",
         start_url: "/",
         display: "standalone",
         background_color: "#ffffff",
