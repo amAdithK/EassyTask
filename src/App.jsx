@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getToken, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase";
 import Home from "./pages/Home";
@@ -53,8 +53,17 @@ export default function App() {
     <BrowserRouter>
       <ToastContainer position="bottom-right" autoClose={3000} />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            localStorage.getItem("access_token") ? (
+              <Navigate to="/tasklist" replace />
+            ) : (
+              <Login />
+            )
+          }
+        />
+        {/* <Route path="/signup" element={<Signup />} /> */}
         {/* <Route path="/tasklist" element={<Home firebase={token} />} /> */}
         <Route
           path="/tasklist"
