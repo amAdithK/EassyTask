@@ -3,11 +3,17 @@ import api from "./apiServices";
 import { handleApiError } from "../utilities/custom";
 
 // Get Tasks
+// Get Tasks
 export const fetchTasks = async () => {
   try {
     const response = await api.get(`/tasks`);
     return { error: false, data: response.data };
-  } catch {
+  } catch (error) {
+    // Check for 401 Unauthorized
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("access_token");
+      window.location.reload();
+    }
     return {
       error: true,
       message: ERROR_MESSAGES.DATA_FETCH_ERROR,

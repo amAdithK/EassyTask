@@ -4,7 +4,6 @@ import { getToken, onMessage } from "firebase/messaging";
 import { messaging } from "./firebase";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import { ToastContainer, toast } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -20,9 +19,7 @@ export default function App() {
             vapidKey:
               "BKHiOsWONhBq5fJwpDVWB0ikAouaf_kb7c-7x380slicfXOIfhg-iv2YM398g4fZ4kuy_7xkyLzmqHjuOOf59EA",
           });
-          // console.log("FCM Token:", fcmToken);
           localStorage.setItem("FCMTokenKey", fcmToken);
-          // await updateFcmToken(fcmToken);
           setToken(fcmToken);
         }
       } catch (error) {
@@ -63,8 +60,6 @@ export default function App() {
             )
           }
         />
-        {/* <Route path="/signup" element={<Signup />} /> */}
-        {/* <Route path="/tasklist" element={<Home firebase={token} />} /> */}
         <Route
           path="/tasklist"
           element={
