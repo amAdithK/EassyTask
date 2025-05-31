@@ -33,15 +33,15 @@ export default function App() {
       const registration = await navigator.serviceWorker.getRegistration();
 
       if (registration) {
-        registration.showNotification(payload.notification.title, {
-          body: payload.notification.body,
-          icon: payload.notification.icon,
+        registration.showNotification(payload.data.title, {
+          body: payload.data.body,
+          icon: payload.data.icon,
           data: payload.data,
           vibrate: [100, 50, 100],
           requireInteraction: false,
         });
       } else {
-        toast(payload.notification.title + ": " + payload.notification.body); // fallback
+        toast(payload.data.title + ": " + payload.data.body); // fallback
       }
     });
   }, []);

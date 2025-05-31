@@ -5,18 +5,18 @@ import { fetchUsers } from "../services/userService";
 import { updateTaskStatus } from "../services/statusService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Grid from '@mui/material/Grid';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import Grid from "@mui/material/Grid";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-import './Dashboard.css';
+import "./Dashboard.css";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -28,11 +28,12 @@ export default function TaskList() {
   useEffect(() => {
     loadTasks();
     loadUsers();
-  }, []);
+  }, [showClosed]);
 
   const loadTasks = async () => {
     try {
-      const response = await fetchTasks();
+      setLoading(true);
+      const response = await fetchTasks(showClosed);
       setTasks(response.data || []);
     } catch (error) {
       toast.error("Failed to fetch tasks.");
@@ -82,10 +83,7 @@ export default function TaskList() {
 
   if (loading) return <div className="text-center p-6">Loading...</div>;
 
-
-
   return (
-
     <div className="main">
       <Grid
         container
@@ -93,20 +91,23 @@ export default function TaskList() {
         sx={{
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: '15px'
+          marginBottom: "15px",
         }}
       >
         <h1 className="headingTitle">Task List</h1>
         <FormGroup>
-          <FormControlLabel control={<Switch
-            checked={showClosed}
-            onChange={() => setShowClosed(!showClosed)}
-          />}
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showClosed}
+                onChange={() => setShowClosed(!showClosed)}
+              />
+            }
             label="Show Closed"
             labelPlacement="start"
             sx={{
-              '&.MuiFormControlLabel-root': { marginRight: '0' },
-              '& .MuiFormControlLabel-label': { fontSize: '14px' }
+              "&.MuiFormControlLabel-root": { marginRight: "0" },
+              "& .MuiFormControlLabel-label": { fontSize: "14px" },
             }}
           />
         </FormGroup>
@@ -153,15 +154,15 @@ export default function TaskList() {
                           e.stopPropagation();
                           handleStatusChange(task.uuid, e.target.value);
                         }}
-                        sx={{ '& .MuiSelect-select': { fontSize: '14px' } }}
+                        sx={{ "& .MuiSelect-select": { fontSize: "14px" } }}
                         MenuProps={{
                           PaperProps: {
                             sx: {
-                              '& .MuiSelect-select': {
-                                fontSize: '14px',
+                              "& .MuiSelect-select": {
+                                fontSize: "14px",
                               },
-                              '& .MuiMenuItem-root': {
-                                fontSize: '14px',
+                              "& .MuiMenuItem-root": {
+                                fontSize: "14px",
                               },
                             },
                           },
@@ -172,7 +173,6 @@ export default function TaskList() {
                         <MenuItem value="Closed">Closed</MenuItem>
                       </Select>
                     </FormControl>
-
                   </div>
                 </Grid>
                 <Grid size={6}>
@@ -187,23 +187,24 @@ export default function TaskList() {
                           e.stopPropagation();
                           handleAssignUser(task.uuid, e.target.value);
                         }}
-                        sx={{ '& .MuiSelect-select': { fontSize: '14px' } }}
+                        sx={{ "& .MuiSelect-select": { fontSize: "14px" } }}
                         MenuProps={{
                           PaperProps: {
                             sx: {
-                              '& .MuiMenuItem-root': {
-                                fontSize: '14px',
+                              "& .MuiMenuItem-root": {
+                                fontSize: "14px",
                               },
                             },
                           },
                         }}
                       >
                         {users.map((user) => (
-                          <MenuItem key={user.value} value={user.value}>{user.label}</MenuItem>
+                          <MenuItem key={user.value} value={user.value}>
+                            {user.label}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>
-
                   </div>
                 </Grid>
               </Grid>

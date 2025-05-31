@@ -4,9 +4,9 @@ import { handleApiError } from "../utilities/custom";
 
 // Get Tasks
 // Get Tasks
-export const fetchTasks = async () => {
+export const fetchTasks = async (showClosed) => {
   try {
-    const response = await api.get(`/tasks`);
+    const response = await api.get(`/tasks?showClosed=${showClosed}`);
     return { error: false, data: response.data };
   } catch (error) {
     // Check for 401 Unauthorized

@@ -17,13 +17,12 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// Optional: Handle background messages
 messaging.onBackgroundMessage((payload) => {
-  const { title, body, icon } = payload.notification;
-  const { url } = payload.data || {};
-  self.registration.showNotification(title, {
-    body,
-    icon,
+  const { title, body, icon, url } = payload.data || {};
+
+  self.registration.showNotification(title || "New Notification", {
+    body: body || "",
+    icon: icon || "/firebase-icon.png",
     data: {
       url: url || "/tasklist",
     },
