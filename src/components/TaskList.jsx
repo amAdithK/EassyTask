@@ -24,6 +24,8 @@ export default function TaskList() {
   const [users, setUsers] = useState([]);
   const [showClosed, setShowClosed] = useState(false);
   const navigate = useNavigate();
+  const [editingNoteId, setEditingNoteId] = useState(null);
+  const [tempNote, setTempNote] = useState("");
 
   useEffect(() => {
     loadTasks();
@@ -74,6 +76,16 @@ export default function TaskList() {
       loadTasks();
     } catch (error) {
       toast.error("Failed to assign user.");
+    }
+  };
+
+  const updateTaskNote = async (taskId, notes) => {
+    try {
+      await updateTask(taskId, { note: notes });
+      toast.success("Notes Updated Successfully!");
+      loadTasks();
+    } catch (error) {
+      toast.error("Failed to update notes.", error);
     }
   };
 
@@ -138,10 +150,61 @@ export default function TaskList() {
                   <label>Description</label>
                   <div className="taskValue">{task.description}</div>
                 </Grid>
-                <Grid size={12}>
+                {/* <Grid size={12}>
                   <label>Note</label>
                   <div className="taskValue">{task.note}</div>
+                </Grid> */}
+
+                <Grid size={12}>
+                  <label>Note</label>
+                  {editingNoteId === task.uuid ? (
+                    <>
+                      <textarea
+                        value={tempNote}
+                        onChange={(e) => setTempNote(e.target.value)}
+                        className="noteInput"
+                        rows={3}
+                        style={{
+                          width: "100%",
+                          fontSize: "14px",
+                          marginTop: "5px",
+                        }}
+                      />
+                      <div style={{ marginTop: "5px" }}>
+                        <button
+                          onClick={() => {
+                            updateTaskNote(task.uuid, tempNote);
+                            setEditingNoteId(null);
+                          }}
+                          className="btnUpdate"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={() => setEditingNoteId(null)}
+                          className="btnCancel"
+                          style={{ marginLeft: "10px" }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div
+                      className="taskValue"
+                      onClick={() => {
+                        setEditingNoteId(task.uuid);
+                        setTempNote(task.note || "");
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {task.note || (
+                        <i style={{ color: "#888" }}>Click to add a note...</i>
+                      )}
+                    </div>
+                  )}
                 </Grid>
+
                 <Grid size={6}>
                   <div className="taskValue">
                     <FormControl fullWidth size="small">
