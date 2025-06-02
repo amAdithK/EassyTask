@@ -45,7 +45,6 @@ export const updateTask = async (uuid, taskData) => {
       data: response.data,
     };
   } catch (error) {
-    console.log(error);
     return handleApiError(error);
   }
 };

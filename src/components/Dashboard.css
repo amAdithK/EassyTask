@@ -63,3 +63,9 @@
   background-color: #f44336;
   color: white;
 }
+
+.noteInput {
+  resize: none;
+  font-family: inherit;
+}
+

@@ -15,6 +15,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import CheckCircle from "@mui/icons-material/CheckCircle";
+import CloseIcon from "@mui/icons-material/Cancel";
 
 import "./Dashboard.css";
 
@@ -150,45 +152,58 @@ export default function TaskList() {
                   <label>Description</label>
                   <div className="taskValue">{task.description}</div>
                 </Grid>
-                {/* <Grid size={12}>
-                  <label>Note</label>
-                  <div className="taskValue">{task.note}</div>
-                </Grid> */}
-
                 <Grid size={12}>
                   <label>Note</label>
                   {editingNoteId === task.uuid ? (
-                    <>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        marginTop: "5px",
+                      }}
+                    >
                       <textarea
                         value={tempNote}
                         onChange={(e) => setTempNote(e.target.value)}
                         className="noteInput"
-                        rows={3}
+                        rows={2}
                         style={{
-                          width: "100%",
+                          flexGrow: 1,
                           fontSize: "14px",
-                          marginTop: "5px",
+                          padding: "5px",
+                          borderRadius: "4px",
+                          border: "1px solid #ccc",
                         }}
                       />
-                      <div style={{ marginTop: "5px" }}>
-                        <button
-                          onClick={() => {
-                            updateTaskNote(task.uuid, tempNote);
-                            setEditingNoteId(null);
-                          }}
-                          className="btnUpdate"
-                        >
-                          Update
-                        </button>
-                        <button
-                          onClick={() => setEditingNoteId(null)}
-                          className="btnCancel"
-                          style={{ marginLeft: "10px" }}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </>
+                      <button
+                        onClick={() => {
+                          updateTaskNote(task.uuid, tempNote);
+                          setEditingNoteId(null);
+                        }}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "#4caf50",
+                        }}
+                        title="Update"
+                      >
+                        <CheckCircle />
+                      </button>
+                      <button
+                        onClick={() => setEditingNoteId(null)}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "#f44336",
+                        }}
+                        title="Cancel"
+                      >
+                        <CloseIcon />
+                      </button>
+                    </div>
                   ) : (
                     <div
                       className="taskValue"
