@@ -58,6 +58,7 @@ const Login = () => {
     } else {
       toast.success(SUCCESS_MESSAGES.LOGIN_SUCCESS || "Login successful.");
       localStorage.setItem("access_token", responseData.data.token);
+      localStorage.setItem("current_user", JSON.stringify(responseData.data));
 
       dispatch({
         type: "LOG_IN",

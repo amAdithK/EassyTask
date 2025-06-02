@@ -1,10 +1,13 @@
 // src/pages/TaskList.jsx
 import { useEffect, useState } from "react";
-import { fetchTasks, updateTask } from "../services/taskServices";
+import {
+  updateTask,
+  fetchTasksByUserID,
+  // fetchTasks,
+} from "../services/taskServices";
 import { fetchUsers } from "../services/userService";
 import { updateTaskStatus } from "../services/statusService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
@@ -17,7 +20,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import CloseIcon from "@mui/icons-material/Cancel";
-
+import { getUserUuid } from "../utilities/custom";
 import "./Dashboard.css";
 
 export default function TaskList() {
@@ -25,7 +28,6 @@ export default function TaskList() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [showClosed, setShowClosed] = useState(false);
-  const navigate = useNavigate();
   const [editingNoteId, setEditingNoteId] = useState(null);
   const [tempNote, setTempNote] = useState("");
 
@@ -34,10 +36,12 @@ export default function TaskList() {
     loadUsers();
   }, [showClosed]);
 
+  const userUuid = getUserUuid();
   const loadTasks = async () => {
     try {
       setLoading(true);
-      const response = await fetchTasks(showClosed);
+      // const response = await fetchTasks(showClosed);
+      const response = await fetchTasksByUserID(userUuid, 5);
       setTasks(response.data || []);
     } catch (error) {
       toast.error("Failed to fetch tasks.");

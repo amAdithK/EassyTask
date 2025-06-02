@@ -37,6 +37,7 @@ export const createTask = async (taskData) => {
 
 // Update Task
 export const updateTask = async (uuid, taskData) => {
+  console.log(uuid, taskData);
   try {
     const response = await api.put(`/tasks/${uuid}`, taskData);
     return {
