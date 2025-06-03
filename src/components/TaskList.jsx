@@ -47,6 +47,44 @@ export default function TaskList() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        const shouldRefresh = localStorage.getItem("refreshTaskList");
+        if (shouldRefresh === "true") {
+          loadTasks();
+          localStorage.removeItem("refreshTaskList");
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("refresh") === "true") {
+      localStorage.setItem("refreshTaskList", "true");
+      // Optionally remove query param from URL
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  }, []);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("refresh") === "true") {
+      localStorage.setItem("refreshTaskList", "true");
+      // Optionally remove query param from URL
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  }, []);
+
   const userUuid = getUserUuid();
   const loadTasks = async () => {
     try {
