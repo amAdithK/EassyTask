@@ -35,6 +35,7 @@ messaging.onBackgroundMessage((payload) => {
 self.addEventListener("notificationclick", function (event) {
   event.notification.close();
   const targetUrl = event.notification.data?.url || "/tasklist";
+  clients.openWindow(targetUrl + "?refresh=true");
 
   event.waitUntil(
     clients
