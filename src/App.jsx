@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { ToastContainer, toast } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { reload } from "firebase/auth";
 
 export default function App() {
   const [token, setToken] = useState(null);
@@ -29,9 +30,27 @@ export default function App() {
 
     requestNotificationPermission();
 
-    onMessage(messaging, async (payload) => {
-      const registration = await navigator.serviceWorker.getRegistration();
+    // onMessage(messaging, async (payload) => {
+    //   const registration = await navigator.serviceWorker.getRegistration();
 
+    //   window.location.reload();
+    //   if (registration) {
+    //     registration.showNotification(payload.data.title, {
+    //       body: payload.data.body,
+    //       icon: payload.data.icon,
+    //       data: payload.data,
+    //       vibrate: [100, 50, 100],
+    //       requireInteraction: false,
+    //     });
+    //   } else {
+    //     toast(payload.data.title + ": " + payload.data.body); // fallback
+    //   }
+    // });
+
+    onMessage(messaging, async (payload) => {
+      window.dispatchEvent(new Event("refresh-task-list")); // 🔁 Custom event
+
+      const registration = await navigator.serviceWorker.getRegistration();
       if (registration) {
         registration.showNotification(payload.data.title, {
           body: payload.data.body,
@@ -41,7 +60,7 @@ export default function App() {
           requireInteraction: false,
         });
       } else {
-        toast(payload.data.title + ": " + payload.data.body); // fallback
+        toast(payload.data.title + ": " + payload.data.body);
       }
     });
   }, []);
