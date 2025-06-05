@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   updateTask,
   fetchTasksByUserID,
-  // fetchTasks,
+  fetchTasks,
 } from "../services/taskServices";
 import { fetchUsers } from "../services/userService";
 import { updateTaskStatus } from "../services/statusService";
@@ -88,8 +88,8 @@ export default function TaskList() {
   const loadTasks = async () => {
     try {
       setLoading(true);
-      // const response = await fetchTasks(showClosed);
-      const response = await fetchTasksByUserID(userUuid, 5);
+      const response = await fetchTasks(showClosed);
+      // const response = await fetchTasksByUserID(userUuid, 5);
       setTasks(response.data || []);
     } catch (error) {
       toast.error("Failed to fetch tasks.");
